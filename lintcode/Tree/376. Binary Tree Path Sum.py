@@ -7,6 +7,7 @@ Solution:
 DFS recursive
 在遍历树的同时需要记录根结点到当前节点的路径与累计和
 注意 list 的 append() 是浅拷贝，需要用 copy 的 deepcopy
+当 list 类型的对象进行 append 操作时，实际上追加的是该对象的引用。所以当 path 内容发生改变，res 也会改变。
 """
 
 
