@@ -26,7 +26,7 @@ class Solution:
         return len(last_word)
 
 
-# pointer
+# pointer (faster)
 # time-O(n)
 # space-O(1)
 class Solution:
