@@ -14,6 +14,6 @@ class Solution:
     """
     def swapIntegers(self, A, index1, index2):
         # write your code here
-         t = A[index1]
-         A[index1] = A[index2]
-         A[index2] = t
+        t = A[index1]
+        A[index1] = A[index2]
+        A[index2] = t
