@@ -58,6 +58,33 @@ class Solution(object):
                 next_level = []
                 next_level_val = []
         return res
-        
-        
-        
+
+
+# BFS + Stack
+class Solution:
+    """
+    @param root: A Tree
+    @return: Level order a list of lists of integer
+    """
+    def levelOrder(self, root):
+        # write your code here
+        if root == None:
+            return []
+        res = []
+        level = [root]
+        res.append([root.val])
+        while len(level) > 0:
+            cache_node = []
+            cache_value = []
+            for i in range(len(level)):
+                node = level.pop(0)
+                if node.left != None:
+                    cache_node.append(node.left)
+                    cache_value.append(node.left.val)
+                if node.right != None:
+                    cache_node.append(node.right)
+                    cache_value.append(node.right.val)
+            if len(cache_node) > 0:
+                level = cache_node
+                res.append(cache_value)
+        return res
