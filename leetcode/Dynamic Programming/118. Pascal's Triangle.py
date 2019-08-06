@@ -28,8 +28,6 @@ class Solution(object):
         """
         if numRows == 0:
             return []
-        if numRows == 1:
-            return [[1]]
         dp = [[1]]
         for i in range(1, numRows):
             line = [1 for j in range(i+1)]
