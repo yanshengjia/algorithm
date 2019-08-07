@@ -17,8 +17,18 @@ return its level order traversal as:
 
 
 Solution:
-1. DFS
-2. BFS
+1. DFS Recursion
+2. BFS + Stack/Queue Iteration
+
+The zero level contains only one node root. The algorithm is simple :
+    Initiate queue with a root and start from the level number 0 : level = 0.
+
+    While queue is not empty :
+    * Start the current level by adding an empty list into output structure levels.
+    * Compute how many elements should be on the current level : it's a queue length.
+    * Pop out all these elements from the queue and add them into the current level.
+    * Push their child nodes into the queue for the next level.
+    * Go to the next level level++.
 """
 
 
@@ -88,3 +98,41 @@ class Solution:
                 level = cache_node
                 res.append(cache_value)
         return res
+
+
+# BFS + Queue
+from collections import deque
+class Solution:
+    def levelOrder(self, root):
+        """
+        :type root: TreeNode
+        :rtype: List[List[int]]
+        """
+        levels = []
+        if not root:
+            return levels
+        
+        level = 0
+        queue = deque([root,])
+        while queue:
+            # start the current level
+            levels.append([])
+            # number of elements in the current level 
+            level_length = len(queue)
+            
+            for i in range(level_length):
+                node = queue.popleft()
+                # fulfill the current level
+                levels[level].append(node.val)
+                
+                # add child nodes of the current level
+                # in the queue for the next level
+                if node.left:
+                    queue.append(node.left)
+                if node.right:
+                    queue.append(node.right)
+            
+            # go to next level
+            level += 1
+        
+        return levels

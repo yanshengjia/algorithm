@@ -47,7 +47,7 @@ class Solution(object):
         return max(left, right) + 1
         
 
-# BFS + Stack
+# Iteration: DFS + Stack
 # Time-O(N), N is the number of nodes in the tree
 # Space-[O(logN), O(N)], best case: balanced tree, O(logN), worst case: each node has only one left child
 class Solution(object):
@@ -70,4 +70,25 @@ class Solution(object):
                 stack.append((cur_depth+1, node.left))
             if node.right:
                 stack.append((cur_depth+1, node.right))
+        return depth
+
+
+# Iteration: BFS + Queue
+class Solution(object):
+    def maxDepth(self, root):
+        """
+        :type root: TreeNode
+        :rtype: int
+        """
+        depth = 0
+        level = [root] if root else []
+        while level:
+            depth += 1
+            queue = []
+            for el in level:
+                if el.left:
+                    queue.append(el.left)
+                if el.right:
+                    queue.append(el.right)
+            level = queue   
         return depth
