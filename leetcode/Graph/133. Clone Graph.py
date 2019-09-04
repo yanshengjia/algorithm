@@ -120,15 +120,33 @@ class Solution(object):
         
         return node_copy
         
-        
-        
-            
 
-            
-            
-                 
-            
-
-            
-            
-            
+# BFS
+import collections
+class Solution(object):
+    def cloneGraph(self, node):
+        """
+        :type node: Node
+        :rtype: Node
+        """
+        if node == None:
+            return None
+        
+        self.visited = dict()
+        node_copy = Node(node.val, [])
+        self.visited[node] = node_copy
+        self.queue = collections.deque([node])
+        
+        while len(self.queue) > 0:
+            node = self.queue.popleft()
+            for neighbor in node.neighbors:
+                if neighbor not in self.visited:    # add the neighbor node to visited dict
+                    neighbor_copy = Node(neighbor.val, [])
+                    self.visited[neighbor] = neighbor_copy
+                    self.visited[node].neighbors.append(neighbor_copy)
+                    self.queue.append(neighbor)
+                else:   # use the neighbor node in the visited dict
+                    self.visited[node].neighbors.append(self.visited[neighbor])
+        
+        return node_copy    
+  
