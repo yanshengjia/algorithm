@@ -54,7 +54,7 @@ class Solution(object):
 
 
 # Reverse the first half
-# Time: O(N), where N is the length of linked list
+# Time: O(N), >85%, where N is the length of linked list
 # Space: O(1)
 class Solution(object):
     def isPalindrome(self, head):
