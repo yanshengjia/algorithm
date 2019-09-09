@@ -67,5 +67,77 @@ class Solution(object):
             return False
         return self.dfs(root.left, mn, root.val) and self.dfs(root.right, root.val, mx)
         
+
+# Iteration
+# Time: O(N), >58%, where N is the size of tree
+# Space: O(N), since we keep up to the entire tree
+class Solution(object):
+    def isValidBST(self, root):
+        """
+        :type root: TreeNode
+        :rtype: bool
+        """
+        if root == None:
+            return True
+        
+        stack = [(root, float('-inf'), float('inf'))]
+        
+        # iteratively
+        while stack:
+            root, mn, mx = stack.pop()
+            if root == None:
+                continue
+            if root.val <= mn or root.val >= mx:
+                return False
+            stack.append((root.left, mn, root.val))
+            stack.append((root.right, root.val, mx))
+        return True
+
+
+# inorder
+# Time: O(N), >6%, where N is the size of BST
+# Space: O(N)
+class Solution(object):
+    def isValidBST(self, root):
+        """
+        :type root: TreeNode
+        :rtype: bool
+        """
+        return self.inorder(root) == sorted(list(set(self.inorder(root))))
+    
+    def inorder(self, root):
+        if root == None:
+            return []
+        return self.inorder(root.left) + [root.val] + self.inorder(root.right)
         
 
+# inorder without storing the array
+# Time: O(N), >81%, where N is the size of BST
+# Space: O(N)
+class Solution(object):
+    def isValidBST(self, root):
+        """
+        :type root: TreeNode
+        :rtype: bool
+        """
+        stack, pre = [], float('-inf')
+        
+        # inorder traversel iteratively
+        while stack or root:
+            while root:
+                stack.append(root)
+                root = root.left
+            root = stack.pop()
+            
+            # cur element is supposed to be bigger than the previous one in a bst
+            if root.val <= pre:
+                return False
+            pre = root.val
+            root = root.right
+        
+        return True
+        
+        
+        
+        
+        
