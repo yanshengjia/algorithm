@@ -42,7 +42,8 @@ Note that the result table has 13 columns (1 for the department id + 12 for the 
 
 Solution:
 Group by + MAX
-Group by id 之后每个 id 都只有一条记录，需要用 MAX 来寻找 id 下每个月的 revenue
+Group by id 之后每个 id 都只有一条记录，需要用 MAX 来 extract id 下每个月的 revenue. HACK!
+Because by using GROUP BY sql engine creates a set of result rows for each element in GROUP BY clause and allows only aggregate operations only against multiple values like SUM, AVG, MIN, MAX, COUNT. Since our set consists of one element and we cannot extract this element directly from GROUP BY we are using kind of hack - aggregate function over single element. Aggregate function for one element = this element.
 """
 
 
