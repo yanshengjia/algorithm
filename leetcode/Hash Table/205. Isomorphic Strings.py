@@ -25,7 +25,7 @@ Hash Table, store each mapping
 
 
 # Hashtable
-# Time: O(N), where N is the length of s
+# Time: O(N), >80%, where N is the length of s
 # Space: O(N)
 class Solution:
     def isIsomorphic(self, s: str, t: str) -> bool:
