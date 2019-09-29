@@ -31,6 +31,8 @@ Use a sliding window to track the longest valid substring.
 """
 
 
+# Sliding window
+# Time: 
 class Solution:
     def equalSubstring(self, s: str, t: str, maxCost: int) -> int:
         len_s = len(s)
@@ -50,22 +52,22 @@ class Solution:
             # move end by one position. 
             # Update count and sum 
             # accordingly. 
-            if (sum <= maxCost) : 
+            if sum <= maxCost: 
                 end += 1
 
-                if (end >= start):
+                if end >= start:
                     if end - start > res:
                         res = end - start 
 
                 # For last element, end may become n 
-                if (end < len_s): 
+                if end < len_s: 
                     sum += diff[end] 
 
             # If sum is greater than or equal to k,  
             # subtract arr[start] from sum and 
             # decrease sliding window by moving  
             # start by one position 
-            else : 
-                sum -= diff[start] 
+            else :  # sum > maxCost
+                sum -= diff[start]
                 start += 1
         return res
