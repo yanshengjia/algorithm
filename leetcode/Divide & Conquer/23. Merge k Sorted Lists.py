@@ -108,4 +108,3 @@ class Solution(object):
             if node:
                 heapq.heappush(q, (node.val, node))
         return dummy.next
-        
