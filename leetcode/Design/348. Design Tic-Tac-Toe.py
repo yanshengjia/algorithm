@@ -59,6 +59,73 @@ Time: 0(1) for move()
 """
 
 
+# For each chess placed, check current row, col, diagonal, anti-diagonal
+# Time: O(n)
+# Space: O(n^2)
+class TicTacToe:
+
+    def __init__(self, n: int):
+        """
+        Initialize your data structure here.
+        """
+        self.board = [[0 for _ in range(n)] for _ in range(n)]
+        self.n = n
+        
+
+    def move(self, row: int, col: int, player: int) -> int:
+        """
+        Player {player} makes a move at ({row}, {col}).
+        @param row The row of the board.
+        @param col The column of the board.
+        @param player The player, can be either 1 or 2.
+        @return The current winning condition, can be either:
+                0: No one wins.
+                1: Player 1 wins.
+                2: Player 2 wins.
+        """
+        # check cur row, col, diagonal, anti-diagonal
+        self.board[row][col] = player
+                      
+        # row
+        counter = 0
+        for i in range(self.n):
+            if self.board[row][i] != player:
+                break
+            counter += 1
+        if counter == self.n:
+            return player
+        
+        # col
+        counter = 0
+        for i in range(self.n):
+            if self.board[i][col] != player:
+                break
+            counter += 1
+        if counter == self.n:
+            return player
+    
+        # diagonal
+        counter = 0
+        if row == col:
+            for i in range(self.n):
+                if self.board[i][i] != player:
+                    break
+                counter += 1
+            if counter == self.n:
+                return player
+                      
+        # anti-diagonal
+        counter = 0
+        if row + col == self.n - 1:
+            for i in range(self.n):
+                if self.board[i][self.n - i - 1] != player:
+                    break
+                counter += 1
+            if counter == self.n:
+                return player
+        return 0
+
+
 # Record the number of chess in each row/col/diagonal/anti-diagonal
 # Time: O(1)
 # Space: O(n)
