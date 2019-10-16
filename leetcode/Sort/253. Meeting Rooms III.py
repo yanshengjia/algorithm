@@ -16,13 +16,18 @@ otherwise ignore the current event
 # Greedy
 # Time: O(NlogN)
 # Space: O(N)
-def universityCareerFair(arrival, duration):
-    aux = sorted(
-        list(zip(arrival, duration)),
-        key=lambda p: (sum(p), p[1])
-    )
-    ans, end = 0, -float('inf')
-    for arr, dur in aux:
-        if arr >= end:
-            ans, end = ans + 1, arr + dur
-    return ans
+class Solution:
+    def minMeetingRooms(self, intervals: List[List[int]]) -> int:
+        arrival = [i[0] for i in intervals]
+        duration = [i[1] - i[0] for i in intervals]
+
+        aux = sorted(
+            list(zip(arrival, duration)),
+            key=lambda p: (sum(p), p[1])
+        )
+        res, end = 0, -float('inf')
+        for arr, dur in aux:
+            if arr >= end:
+                res += 1
+                end = arr + dur
+        return res
