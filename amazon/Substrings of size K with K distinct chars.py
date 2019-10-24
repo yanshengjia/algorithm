@@ -16,6 +16,10 @@ Output: ["wagl", "aglk", "glkn", "lkna", "knag", "gawu", "awun", "wuna", "unag",
 Explanation: 
 Substrings in order are: "wagl", "aglk", "glkn", "lkna", "knag", "gawu", "awun", "wuna", "unag", "nagw", "agwk", "kwag", "wagl" 
 "wagl" is repeated twice, but is included in the output once.
+
+
+Solution:
+Sliding window. Maintain a window and keep a count of every character in the window. Whenever the size of window is equaled to k, add it to the res.
 """
 
 
