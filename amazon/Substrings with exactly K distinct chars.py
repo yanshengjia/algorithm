@@ -20,9 +20,35 @@ def substring_k_distinct_chars(s: str, k: int) -> int:
     
     l = len(s)
     i, j = 0, 0
-    window = set()
-    while i < j and j < l:
+    distinct, prefix = 0, 0
+    res = 0
+    window = dict()
+    while j < l:
+        if s[j] in window and window[s[j]] != 0:
+            window[s[j]] += 1
+        else:
+            distinct += 1
+            window[s[j]] = 1
         
-
+        if distinct > k:
+            window[s[i]] -= 1
+            prefix = 0
+            distinct -= 1
+            i += 1
+        
+        while window[s[i]] > 1:
+            window[s[i]] -= 1
+            i += 1
+            prefix += 1
+        
+        if distinct == k:
+            res += 1 + prefix
 
         j += 1
+    return res
+
+
+if __name__ == "__main__":
+    s = "pqpqs"
+    k = 2
+    print(substring_k_distinct_chars(s, k))
