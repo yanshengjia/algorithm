@@ -59,3 +59,22 @@ class Solution:
         head.next.next = head
         head.next = None
         return p
+
+
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.next = None
+
+# Python 表达式先计算右值，右值都计算完毕，在从左往右给左值赋值
+class Solution:
+    def reverseList(self, head):
+        """
+        :type head: ListNode
+        :rtype: ListNode
+        """
+        pre, cur = None, head
+        while cur:
+            cur.next, cur, pre = pre, cur.next, cur
+        return pre
