@@ -33,6 +33,7 @@ dp[i][j] = 1, if i == j
 
 # Recursion
 # TLE
+# Time: O(2^n)
 class Solution:
     def longestPalindromeSubseq(self, s: str) -> int:
         return self.lps(0, len(s)-1, s)
