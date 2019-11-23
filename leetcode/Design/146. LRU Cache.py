@@ -40,7 +40,7 @@ https://docs.python.org/3/library/collections.html#collections.OrderedDict
 This problem can be solved with a hashmap that keep track of the keys and its value in the double linked list.
 https://leetcode.com/problems/lru-cache/solution/ 
 用双向链表连接 Hashmap 中的 key-value pair，维护链表的节点从最近访问到最旧访问的顺序。
-keep track of head node and tail node. 这两个结点是工具人，the nodes in between are ordered based on frequency, from head to tail, frequency desc.
+keep track of head node and tail node. 这两个结点是工具人，the nodes in between are ordered based on time which they are accessed, from head to tail, most recently to least recently.
 实现 OrderedDict 中的 move_to_end() 和 popitem()，在实际实现中实现的是 move_to_head() 和 pop_tail()，因为实现简单。
 
 
@@ -131,7 +131,7 @@ class LRUCache:
         
     
     def move_to_head(self, node):
-        # move cur node right after head, most frequent item
+        # move cur node right after head, most recently used item
         self.remove_node(node)
         self.add_node(node)
     
