@@ -54,7 +54,7 @@ class Solution:
         return res
 
 
-# Iteration
+# Iteration with Stack
 # Time: O(N), N = tree size
 # Space: O(N)
 class Solution(object):
