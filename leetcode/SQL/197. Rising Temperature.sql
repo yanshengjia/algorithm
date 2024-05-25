@@ -29,7 +29,7 @@ SELECT
 FROM
     weather
         JOIN
-    weather w ON DATEDIFF(weather.date, w.date) = 1
+    weather w ON DATEDIFF(weather.Recorddate, w.Recorddate) = 1
         AND weather.Temperature > w.Temperature
 
 
