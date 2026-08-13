@@ -45,6 +45,7 @@ class Solution:
             complement = target - nums[i]
             if complement in d: # insert elements into hash table and look back
                 return [i, d[complement]]
-            d[nums[i]] = i
+            d[nums[i]] = i # bc we want to find complement in d, store nums value as key in dict
         return []
+        
         

@@ -30,22 +30,44 @@ We can skip all the elements in the range [i, j'] and let ii to be j' + 1 direct
 """
 
 
+# Brute Force (Time Limit Exceeded)
+# Time Complexity: O(N^3), where N is the length of the string s. The nested loops iterate through all possible substrings and the checkIfNoRepeatingChar function takes O(N) time in the worst case.
+# Space Complexity: O(N), where N is the length of the string s. The set can contain at most N elements.
+class Solution:
+    def lengthOfLongestSubstring(self, s: str) -> int:
+    
+        def checkIfNoRepeatingChar(start: int, end: int) -> bool:
+            chars = set()
+            for i in range(start, end+1):
+                if s[i] in chars:
+                    return False
+                chars.add(s[i])
+            return True
+        
+        res = 0
+        for i in range(len(s)):
+            for j in range(i, len(s)):
+                if checkIfNoRepeatingChar(i, j):
+                    res = max(res, j-i+1)
+        return res
+
+
 # Sliding Windows
 # Time: O(2n), In the worst case, each character will be visited twice.
 # Space: O(min(m, n)). Same as the previous approach. We need O(k) space for the sliding window, where k is the size of the Set. The size of the Set is upper bounded by the size of the string nn and the size of the charset/alphabet m.
 class Solution:
     def lengthOfLongestSubstring(self, s: str) -> int:
         d = set()   # store all the unique values in the sliding window
-        i, j = 0, 0
+        i, j = 0, 0 # j goes first
         n = len(s)
         res = 0
         while i < n and j < n:
             # extend the sliding window
-            if s[j] not in d:
-                d.add(s[j])
+            if s[j] not in d: # meet unique char, add to chars
+                d.add(s[j]) 
                 j += 1
                 res = max(res, j-i)
-            else:
+            else: # meet dup char, pin j (no need to move j bc s[j] is already a dup char in the window), move i forward to find possible longest substring
                 d.remove(s[i])
                 i += 1
         return res

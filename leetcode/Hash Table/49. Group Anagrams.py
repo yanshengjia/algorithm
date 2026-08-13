@@ -76,3 +76,31 @@ class Solution:
                 count[ord(c) - ord('a')] += 1
             ans[tuple(count)].append(s)
         return ans.values()
+
+
+# Categorize by Count + Hash Table
+# Time Complexity: O(NK), where N is the length of strs, and K is the maximum length of a string in strs. We iterate through each string and count its characters.
+# Space Complexity: O(NK), where N is the length of strs, and K is the maximum length of a string in strs. We store the frequency count for each string.
+class Solution:
+    def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
+
+        d = {} # {tuple_hashtable_as_key: [anagram1, anagram2]}
+        res = []
+        for word in strs:
+            tuple_hashtable_as_key = self.hash(word)
+            if tuple_hashtable_as_key not in d:  # new anagram
+                d[tuple_hashtable_as_key] = [word]
+            else: # hit existing anagram
+                d[tuple_hashtable_as_key].append(word)
+        
+        for k, v in d.items():
+            res.append(v)  # anagrams in values
+        return res
+
+    
+    # use hash table (len = 26 bc there are 26 letters) to count the chars in the word
+    def hash(self, word):
+        count = [0] * 26
+        for char in word:
+            count[ord(char) - ord('a')] += 1 # ord() returns int representation of ASCII number
+        return tuple(count) # why use tuple? tuples can be dict keys, as long as all of their elements are hashable.

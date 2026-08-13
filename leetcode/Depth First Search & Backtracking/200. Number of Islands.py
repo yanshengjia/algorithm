@@ -62,6 +62,42 @@ class Solution:
         return res
 
 
+# DFS 
+# Time: O(MN), M is the row number, N is the col number, since we visit each point one time.
+# Space: worst case O(MN), in case that the grid map is filled with lands
+class Solution:
+    def numIslands(self, grid: List[List[str]]) -> int:
+        # edge case
+        if not grid:
+            return 0
+
+        m = len(grid)
+        n = len(grid[0])
+        
+        # dfs starting from coordinate (i, j)
+        def dfs(i, j):
+            # stop condition: index overflown or meet water or meet visited cell
+            if i < 0 or i >= m or j < 0 or j >= n or grid[i][j] != "1":
+                return
+            
+            grid[i][j] = '-1' # mark as visited
+
+            # visit all adjavent cells
+            dfs(i+1, j)
+            dfs(i-1, j)
+            dfs(i, j+1)
+            dfs(i, j-1)
+
+        num_islands = 0
+        for i in range(m):
+            for j in range(n):
+                if grid[i][j] == '1':
+                    num_islands += 1
+                    dfs(i, j)
+
+        return num_islands
+
+
 # DFS Iteration
 class Solution:
     def numIslands(self, grid: List[List[str]]) -> int:
@@ -122,3 +158,44 @@ class Solution:
         return res
         
         
+# BFS (Stack)
+# Time Complexity: O(MN), M is the row number, N is the col number, since we visit each point one time.
+# Space Complexity: O(MN), in case that the grid map is filled with lands where
+class Solution:
+    def numIslands(self, grid: List[List[str]]) -> int:
+        # edge case
+        if not grid:
+            return 0
+
+        m = len(grid)
+        n = len(grid[0])
+        
+        num_islands = 0
+        for i in range(m):
+            for j in range(n):
+                if grid[i][j] == '1': # find a new island
+                    num_islands += 1
+                    grid[i][j] = 0 # mark as visited
+                    neighbours = [(i, j)] # use stack to bfs
+
+                    while neighbours:
+                        row, col = neighbours.pop()
+
+                        # up
+                        if row - 1 >= 0 and grid[row-1][col] == '1':
+                            grid[row-1][col] = 0 # mark as visited
+                            neighbours.append((row-1, col))
+                        # down
+                        if row + 1 < m and grid[row+1][col] == '1':
+                            grid[row+1][col] = 0 # mark as visited
+                            neighbours.append((row+1, col))
+                        # left
+                        if col - 1 >= 0 and grid[row][col-1] == '1':
+                            grid[row][col-1] = 0 # mark as visited
+                            neighbours.append((row, col-1))
+                        # right
+                        if col + 1 < n and grid[row][col+1] == '1':
+                            grid[row][col+1] = 0 # mark as visited
+                            neighbours.append((row, col+1))
+        
+        return num_islands
